@@ -8,10 +8,11 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function toNewsItem(item: NewsApiResultItem): NewsItem {
+  const cleanText = item.description?.replace(/<[^>]*>/g, '')
   return {
     id: item.article_id,
     title: item.title,
-    description: item.description ?? DUMMY_DESCRIPTION,
+    description: cleanText ?? DUMMY_DESCRIPTION,
     url: item.link,
     image: item.image_url ?? null,
     author: item.creator?.[0] ?? null,

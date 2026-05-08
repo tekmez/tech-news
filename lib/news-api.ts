@@ -1,18 +1,18 @@
-import type { NewsApiResponse, NewsApiResultItem } from "@/types/news"
+import type { NewsApiResponse, NewsApiResultItem, NewsCategory } from "@/types/news"
 import { toNewsItem } from "@/lib/utils"
 import { API_BASE_URL, API_KEY, NEWS_REVALIDATE_SECONDS } from "@/constants"
 
-
+const DEFAULT_PARAMS = {
+  apikey: API_KEY,
+  language: "en",
+  image: "1",
+}
 export async function getNews() {
   if (!API_KEY) {
     throw new Error("API key is not defined.")
   }
   try {
-    const params = new URLSearchParams({
-      apikey: API_KEY,
-      language: "en",
-      image: "1",
-    })
+    const params = new URLSearchParams({ ...DEFAULT_PARAMS })
     const url = `${API_BASE_URL}/latest?${params.toString()}`
 
     const response = await fetch(url, {
@@ -25,6 +25,7 @@ export async function getNews() {
     }
 
     const data = (await response.json()) as NewsApiResponse
+    console.log(data)
 
     if (data.status !== "success") {
       throw new Error("API response is not successful.")
@@ -64,5 +65,30 @@ export async function getNewsById(articleId: string) {
     return news
   } catch {
     throw new Error("Failed to fetch news detail.")
+  }
+}
+
+export async function getNewsByCategory(category: NewsCategory) {
+  if (!API_KEY) {
+    throw new Error("API key is not defined.")
+  }
+  try {
+    const params = new URLSearchParams({ ...DEFAULT_PARAMS, category })
+    const url = `${API_BASE_URL}/latest?${params.toString()}`
+    const response = await fetch(url, {
+      method: "GET",
+      next: { revalidate: NEWS_REVALIDATE_SECONDS },
+    })
+    if (!response.ok) {
+      throw new Error(`News by category could not be fetched. Status: ${response.status}`)
+    }
+    const data = (await response.json()) as NewsApiResponse
+    if (data.status !== "success") {
+      throw new Error("API response is not successful.")
+    }
+    const news = (data.results ?? []).map(toNewsItem)
+    return news
+  } catch {
+    throw new Error("Failed to fetch news by category.")
   }
 }

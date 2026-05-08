@@ -1,9 +1,14 @@
 import Link from "next/link"
 import { getNews } from "@/lib/news-api"
 
+export async function generateMetadata() {
+  return {
+    title: "Latest News - The NEWS",
+    description: "Latest news from the world",
+  }
+}
 export default async function Page() {
   const news = await getNews()
-
   return (
     <div className="min-h-svh py-6">
       <div className="mx-auto flex max-w-5xl flex-col gap-4">

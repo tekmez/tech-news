@@ -1,15 +1,6 @@
 import { ThemeToggle } from "@/components/theme-toggle"
-
-const NAV_ITEMS = [
-  "World News",
-  "Politics",
-  "Business",
-  "Technology",
-  "Health",
-  "Sports",
-  "Culture",
-  "Podcast",
-]
+import { NewsCategory } from "@/types/news"
+import Link from "next/link"
 
 function formatHeaderDate(date: Date) {
   return new Intl.DateTimeFormat("en-US", {
@@ -43,15 +34,13 @@ export function SiteHeader() {
         aria-label="Primary"
         className="border-b border-foreground/35 py-3"
       >
-        <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm">
-          {NAV_ITEMS.map((item) => (
-            <li key={item}>
-              <a className="transition-opacity hover:opacity-70" href="#">
-                {item}
-              </a>
-            </li>
+        <span className="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm">
+          {Object.values(NewsCategory).map((item) => (
+            <Link key={item} className="transition-opacity hover:opacity-70" href={item === NewsCategory.ALL ? "/" : `/category/${item}`}>
+              {item.charAt(0).toUpperCase() + item.slice(1)}
+            </Link>
           ))}
-        </ul>
+        </span>
       </nav>
     </header>
   )

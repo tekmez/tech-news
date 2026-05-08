@@ -27,4 +27,16 @@ export type NewsApiResponse = {
   status: "success" | "error" | string
   totalResults?: number
   results?: NewsApiResultItem[]
+  nextPage: string
+}
+
+export enum NewsCategory {
+  ALL = "all",
+  WORLD = "world",
+  POLITICS = "politics",
+  BUSINESS = "business",
+  TECHNOLOGY = "technology",
+  HEALTH = "health",
+  SPORTS = "sports",
+  ENTERTAINMENT = "entertainment",
 }
