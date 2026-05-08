@@ -1,19 +1,31 @@
-
 import Link from "next/link"
+import { getNews } from "@/lib/news-api"
 
-export default function Page() {
+export default async function Page() {
+  const news = await getNews()
+
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Link href="/article/1" className="text-blue-500 hover:text-blue-700">Article 1</Link>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
+    <div className="min-h-svh py-6">
+      <div className="mx-auto flex max-w-5xl flex-col gap-4">
+        <h1 className="font-heading text-3xl font-semibold">Latest News</h1>
+
+        <ul className="grid gap-3">
+          {news.map((article) => (
+            <li key={article.id} className="rounded-md border p-4">
+              <Link
+                href={`/article/${article.id}`}
+                className="text-lg font-medium hover:underline"
+              >
+                {article.title}
+              </Link>
+              {article.description ? (
+                <p className="mt-1 text-sm text-muted-foreground overflow-hidden line-clamp-2">
+                  {article.description}
+                </p>
+              ) : null}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   )
