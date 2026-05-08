@@ -1,12 +1,12 @@
-import { Geist, Geist_Mono, Inter, Roboto_Slab } from "next/font/google"
+import { Geist_Mono, Inter, Roboto_Slab } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
 
-const robotoSlabHeading = Roboto_Slab({subsets:['latin'],variable:'--font-heading'});
+const robotoSlabHeading = Roboto_Slab({ subsets: ['latin'], variable: '--font-heading' });
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'})
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 const fontMono = Geist_Mono({
   subsets: ["latin"],
