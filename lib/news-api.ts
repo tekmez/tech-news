@@ -12,6 +12,8 @@ export async function getNews() {
     throw new Error("API key is not defined.")
   }
   try {
+
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     const params = new URLSearchParams({ ...DEFAULT_PARAMS })
     const url = `${API_BASE_URL}/latest?${params.toString()}`
 
@@ -25,7 +27,6 @@ export async function getNews() {
     }
 
     const data = (await response.json()) as NewsApiResponse
-    console.log(data)
 
     if (data.status !== "success") {
       throw new Error("API response is not successful.")
@@ -42,10 +43,12 @@ export async function getNewsById(articleId: string) {
     throw new Error("API key is not defined.")
   }
   try {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     const params = new URLSearchParams({
       apikey: API_KEY,
       id: articleId,
     })
+
     const url = `${API_BASE_URL}/latest?${params.toString()}`
 
     const response = await fetch(url, {
@@ -73,6 +76,7 @@ export async function getNewsByCategory(category: NewsCategory) {
     throw new Error("API key is not defined.")
   }
   try {
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     const params = new URLSearchParams({ ...DEFAULT_PARAMS, category })
     const url = `${API_BASE_URL}/latest?${params.toString()}`
     const response = await fetch(url, {

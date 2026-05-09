@@ -1,3 +1,7 @@
+import { ListSkeleton } from "@/components/skeletons/list-skeleton";
+
 export default function Loading() {
-    return <div>Loading...</div>
+    return (
+        <ListSkeleton />
+    )
 }

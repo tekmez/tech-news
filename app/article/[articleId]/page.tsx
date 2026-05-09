@@ -1,8 +1,9 @@
 
-import { notFound } from "next/navigation"
 import { getNewsById } from "@/lib/news-api"
 import { BackButton } from "@/components/back-button"
-
+import ArticleDetailComponent from "@/components/detail/article-detail"
+import { Suspense } from "react"
+import { DetailSkeleton } from "@/components/skeletons/detail-skeleton"
 export async function generateMetadata({ params }: { params: Promise<{ articleId: string }> }) {
   const { articleId } = await params
   const article = await getNewsById(articleId)
@@ -23,20 +24,12 @@ const ArticleDetail = async ({
   params: Promise<{ articleId: string }>
 }) => {
   const { articleId } = await params
-  const article = await getNewsById(articleId)
-  if (!article) {
-    notFound()
-  }
-
   return (
     <article className="py-8">
       <BackButton />
-      <h1 className="mt-3 font-heading text-3xl font-semibold">{article.title}</h1>
-      {article.author ? (
-        <p className="mt-2 text-sm text-muted-foreground">Yazar: {article.author}</p>
-      ) : null}
-
-      <p className="mt-4 leading-7">{article.description}</p>
+      <Suspense fallback={<DetailSkeleton />}>
+        <ArticleDetailComponent articleId={articleId} />
+      </Suspense>
     </article>
   )
 }
