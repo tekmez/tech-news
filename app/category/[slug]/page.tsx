@@ -2,7 +2,7 @@
 import { NewsCategory } from "@/types/news"
 import { Suspense } from "react"
 import { ListSkeleton } from "@/components/skeletons/list-skeleton"
-import CategoryList from "@/components/lists/category-list"
+import CategoryList from "@/components/lists/category/category-list"
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: NewsCategory }> }) {
     const { slug } = await params

@@ -1,16 +1,16 @@
-import { getAllNews } from "@/lib/news-api";
-import { NewsItemList } from "@/types/news";
+import { getNewsByCategory } from "@/lib/news-api";
+import { NewsCategory, NewsItemList } from "@/types/news";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 const INITIAL_CURSOR = 1778295246086823235;
 
-export default function useGetAllNews(initialData: NewsItemList[]) {
+export default function useGetNewsByCategory(initialData: NewsItemList[], category: NewsCategory) {
     return useInfiniteQuery<NewsItemList[], Error>({
-        queryKey: ["all-news"],
+        queryKey: ["category-news"],
         initialPageParam: INITIAL_CURSOR,
         initialData: { pages: [initialData], pageParams: [INITIAL_CURSOR] },
         queryFn: async ({ pageParam }) => {
-            return getAllNews(pageParam as number);
+            return getNewsByCategory(category, pageParam as number);
         },
         getNextPageParam: (lastPage) => {
             if (!lastPage.length) {

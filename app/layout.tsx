@@ -6,6 +6,8 @@ import { SiteHeader } from "@/components/site-header"
 import { cn } from "@/lib/utils";
 import { SiteFooter } from "@/components/site-footer";
 import ReactQueryProvider from "@/components/react-query";
+import { ErrorBoundary } from "next/dist/client/components/error-boundary";
+import Error from "./error";
 
 const robotoSlabHeading = Roboto_Slab({ subsets: ['latin'], variable: '--font-heading' });
 
