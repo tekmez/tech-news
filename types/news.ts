@@ -1,4 +1,16 @@
-export type NewsItem = {
+export type NewsItemList = {
+  id: string
+  title: string
+  description: string
+  url: string
+  image?: string | null
+  author?: string | null
+  language?: string
+  category?: string[]
+  published: string
+  nextPage: number
+}
+export type NewsItemSingle = {
   id: string
   title: string
   description: string
@@ -9,7 +21,6 @@ export type NewsItem = {
   category?: string[]
   published: string
 }
-
 export type NewsApiResultItem = {
   article_id: string
   title: string
@@ -27,7 +38,7 @@ export type NewsApiResponse = {
   status: "success" | "error" | string
   totalResults?: number
   results?: NewsApiResultItem[]
-  nextPage: string
+  nextPage: number
 }
 
 export enum NewsCategory {

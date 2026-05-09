@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider"
 import { SiteHeader } from "@/components/site-header"
 import { cn } from "@/lib/utils";
 import { SiteFooter } from "@/components/site-footer";
+import ReactQueryProvider from "@/components/react-query";
 
 const robotoSlabHeading = Roboto_Slab({ subsets: ['latin'], variable: '--font-heading' });
 
@@ -27,13 +28,15 @@ export default function RootLayout({
       className={cn("antialiased", fontMono.variable, "font-sans", inter.variable, robotoSlabHeading.variable)}
     >
       <body>
-        <ThemeProvider>
-          <div className="px-4 md:px-6 lg:px-[150px]">
-            <SiteHeader />
-            <main>{children}</main>
-            <SiteFooter />
-          </div>
-        </ThemeProvider>
+        <ReactQueryProvider>
+          <ThemeProvider>
+            <div className="px-4 md:px-6 lg:px-[150px]">
+              <SiteHeader />
+              <main>{children}</main>
+              <SiteFooter />
+            </div>
+          </ThemeProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   )

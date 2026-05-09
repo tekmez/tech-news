@@ -1,7 +1,7 @@
 import Link from "next/link"
-import { NewsItem } from "@/types/news"
+import { NewsItemSingle } from "@/types/news"
 import { NewsImage } from "./card-image"
-export const ArticleCard = ({ article }: { article: NewsItem }) => {
+export const ArticleCard = ({ article }: { article: NewsItemSingle }) => {
     return (
         <Link key={article.id} href={`/article/${article.id}`} className="rounded-md border w-full hover:bg-muted hover:underline">
             {article.image ? <NewsImage src={article.image} alt={article.title} /> : null}

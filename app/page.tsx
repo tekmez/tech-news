@@ -1,6 +1,6 @@
 import { Suspense } from "react"
 import { ListSkeleton } from "@/components/skeletons/list-skeleton"
-import NewsList from "@/components/lists/news-list"
+import NewsListServer from "@/components/lists/all-news/server-list-renderer"
 
 export async function generateMetadata() {
   return {
@@ -14,7 +14,7 @@ export default async function Page() {
       <div className="mx-auto flex max-w-5xl flex-col gap-4">
         <h1 className="font-heading text-3xl font-semibold">Latest News</h1>
         <Suspense fallback={<ListSkeleton />}>
-          <NewsList />
+          <NewsListServer />
         </Suspense>
       </div>
     </div>
