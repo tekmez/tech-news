@@ -1,9 +1,10 @@
 import { Geist_Mono, Inter, Roboto_Slab } from "next/font/google"
 
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/theme/theme-provider"
 import { SiteHeader } from "@/components/site-header"
 import { cn } from "@/lib/utils";
+import { SiteFooter } from "@/components/site-footer";
 
 const robotoSlabHeading = Roboto_Slab({ subsets: ['latin'], variable: '--font-heading' });
 
@@ -30,7 +31,7 @@ export default function RootLayout({
           <div className="px-4 md:px-6 lg:px-[150px]">
             <SiteHeader />
             <main>{children}</main>
-            <footer className="mt-[30px] mb-[30px]">Dummy Footer</footer>
+            <SiteFooter />
           </div>
         </ThemeProvider>
       </body>
