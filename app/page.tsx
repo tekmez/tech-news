@@ -1,12 +1,14 @@
 import { Suspense } from "react"
 import { ListSkeleton } from "@/components/skeletons/list-skeleton"
 import NewsListServer from "@/components/lists/all-news/server-list-renderer"
+import { buildPageMetadata } from "@/lib/metadata-helpers"
 
 export async function generateMetadata() {
-  return {
-    title: "Latest News - The NEWS",
-    description: "Latest news from the world",
-  }
+  return buildPageMetadata({
+    title: "Latest News",
+    description: "Latest news from around the world, updated regularly.",
+    pathname: "/",
+  })
 }
 export default async function Page() {
   return (

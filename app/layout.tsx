@@ -1,11 +1,13 @@
+import type { Metadata, Viewport } from "next"
 import { Geist_Mono, Inter, Roboto_Slab } from "next/font/google"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme/theme-provider"
 import { SiteHeader } from "@/components/site-header"
-import { cn } from "@/lib/utils";
-import { SiteFooter } from "@/components/site-footer";
-import ReactQueryProvider from "@/components/react-query";
+import { cn } from "@/lib/utils"
+import { SiteFooter } from "@/components/site-footer"
+import ReactQueryProvider from "@/components/react-query"
+import { SITE_NAME, SITE_URL } from "@/constants"
 
 const robotoSlabHeading = Roboto_Slab({ subsets: ['latin'], variable: '--font-heading' });
 
@@ -15,6 +17,27 @@ const fontMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: "Technology and world news, updated regularly.",
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "en_US",
+  },
+}
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+  ],
+}
 
 export default function RootLayout({
   children,

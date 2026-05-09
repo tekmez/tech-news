@@ -8,7 +8,7 @@ export default async function ArticleDetailComponent({ articleId }: { articleId:
         notFound()
     }
     return (
-        <article className="flex flex-col py-8">
+        <div className="flex flex-col py-8">
             {article.image ? <DetailImage src={article.image} alt={article.title} /> : null}
             <h1 className="mt-3 font-heading text-3xl font-semibold">{article.title}</h1>
             {article.author ? (
@@ -17,6 +17,6 @@ export default async function ArticleDetailComponent({ articleId }: { articleId:
 
             <p className="mt-4 leading-7">{article.description}</p>
             <p className="mt-4 text-sm text-muted-foreground">{article.published.split(" ")[0]}</p>
-        </article>
+        </div>
     )
 }
