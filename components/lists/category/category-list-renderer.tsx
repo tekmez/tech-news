@@ -10,8 +10,15 @@ type RendererListProps = {
 
 export default function CategoryListRenderer({ news }: RendererListProps) {
     const { slug: category } = useParams<{ slug: NewsCategory }>()
-    const { data, fetchNextPage, isFetchingNextPage, hasNextPage, isError } =
-        useGetNewsByCategory(news, category);
+    const {
+        data,
+        fetchNextPage,
+        isFetchingNextPage,
+        hasNextPage,
+        isError,
+        refetch,
+        isFetching,
+    } = useGetNewsByCategory(news, category);
 
     return (
         <ArticleList
@@ -20,6 +27,8 @@ export default function CategoryListRenderer({ news }: RendererListProps) {
             hasNextPage={hasNextPage}
             isError={isError}
             isFetchingNextPage={isFetchingNextPage}
+            refetch={refetch}
+            isFetching={isFetching}
         />
     );
 }

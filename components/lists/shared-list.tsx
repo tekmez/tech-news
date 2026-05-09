@@ -4,6 +4,7 @@ import { Loader } from "lucide-react";
 import { type InfiniteData } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
+import { Button } from "@/components/ui/button";
 
 
 type ArticleListProps = {
@@ -12,9 +13,11 @@ type ArticleListProps = {
     hasNextPage: boolean,
     isError: boolean
     fetchNextPage: () => void
+    refetch: () => void
+    isFetching: boolean
 }
 
-export default function ArticleList({ data, isFetchingNextPage, hasNextPage, isError, fetchNextPage }: ArticleListProps) {
+export default function ArticleList({ data, isFetchingNextPage, hasNextPage, isError, fetchNextPage, refetch, isFetching }: ArticleListProps) {
     const { ref, inView } = useInView();
 
     useEffect(() => {
@@ -35,6 +38,26 @@ export default function ArticleList({ data, isFetchingNextPage, hasNextPage, isE
                     <ArticleCard key={article.id} article={article} />
                 ))}
             </div>
+            {isError ? (
+                <div
+                    className="mt-6 flex flex-col gap-3 rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between"
+                    role="alert"
+                >
+                    <p className="text-sm text-destructive">
+                        Could not load more articles. Check your connection and try again.
+                    </p>
+                    <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => refetch()}
+                        disabled={isFetching}
+                        className="shrink-0 border-destructive/50"
+                    >
+                        Try again
+                    </Button>
+                </div>
+            ) : null}
             <div className="py-12">
                 {isFetchingNextPage && hasNextPage && (
                     <div className="flex flex-col items-center justify-center gap-4">

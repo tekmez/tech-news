@@ -4,8 +4,15 @@ import useGetAllNews from "@/hook/useGetAllNews";
 import ArticleList from "../shared-list";
 
 export default function NewsList({ news }: { news: NewsItemList[] }) {
-    const { data, fetchNextPage, isFetchingNextPage, hasNextPage, isError } =
-        useGetAllNews(news);
+    const {
+        data,
+        fetchNextPage,
+        isFetchingNextPage,
+        hasNextPage,
+        isError,
+        refetch,
+        isFetching,
+    } = useGetAllNews(news);
 
     return (
         <ArticleList
@@ -14,6 +21,8 @@ export default function NewsList({ news }: { news: NewsItemList[] }) {
             hasNextPage={hasNextPage}
             isError={isError}
             isFetchingNextPage={isFetchingNextPage}
+            refetch={refetch}
+            isFetching={isFetching}
         />
     );
 }

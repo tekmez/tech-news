@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { NewsItemSingle } from "@/types/news"
+import { formatNewsPublishedDate } from "@/lib/utils"
 import { NewsImage } from "./card-image"
 export const ArticleCard = ({ article }: { article: NewsItemSingle }) => {
     return (
@@ -15,6 +16,12 @@ export const ArticleCard = ({ article }: { article: NewsItemSingle }) => {
                 <p className="mt-1 text-sm text-muted-foreground overflow-hidden line-clamp-2">
                     {article.description}
                 </p>
+                <time
+                    className="text-xs text-muted-foreground"
+                    dateTime={article.published}
+                >
+                    {formatNewsPublishedDate(article.published)}
+                </time>
             </div>
         </Link>
     )
