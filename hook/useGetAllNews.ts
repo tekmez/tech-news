@@ -2,7 +2,7 @@ import { getAllNews } from "@/lib/news-api";
 import { NewsItemList } from "@/types/news";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-const INITIAL_CURSOR = 1778295246086823235;
+const INITIAL_CURSOR = 0;
 
 export default function useGetAllNews(initialData: NewsItemList[]) {
     return useInfiniteQuery<NewsItemList[], Error>({
@@ -19,7 +19,7 @@ export default function useGetAllNews(initialData: NewsItemList[]) {
 
             const lastItem = lastPage[lastPage.length - 1];
 
-            return lastItem.nextPage;
+            return lastItem.nextPage ?? undefined;
         },
         refetchOnWindowFocus: false,
         refetchOnMount: false,

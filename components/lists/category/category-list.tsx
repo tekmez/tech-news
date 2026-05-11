@@ -8,7 +8,7 @@ export default async function CategoryList({
 }: {
     category: NewsCategory
 }) {
-    const news = await getNewsByCategory(category, 1778295246086823235)
+    const news = await getNewsByCategory(category, 0)
     if (!news) {
         notFound()
     }

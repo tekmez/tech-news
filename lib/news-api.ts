@@ -1,5 +1,5 @@
 import type { NewsApiResponse, NewsCategory } from "@/types/news"
-import { API_BASE_URL, API_KEY, NEWS_REVALIDATE_SECONDS } from "@/constants"
+import { API_BASE_URL, API_KEY } from "@/constants"
 import { toNewsItem, toNewsListItem } from "./utils"
 import { notFound } from "next/navigation"
 import { cache } from "react"
@@ -17,12 +17,16 @@ export async function getAllNews(pageParam: number) {
     throw new Error("API key is not defined.")
   }
   try {
-    const params = new URLSearchParams({ ...DEFAULT_PARAMS, page: pageParam.toString() })
+    const baseParams = { ...DEFAULT_PARAMS } as Record<string, string>
+    const params = new URLSearchParams(baseParams)
+    if (pageParam) {
+      params.set("page", String(pageParam))
+    }
     const url = `${API_BASE_URL}/latest?${params.toString()}`
 
     const response = await fetch(url, {
       method: "GET",
-      next: { revalidate: NEWS_REVALIDATE_SECONDS },
+      cache: "no-store",
     })
 
     if (!response.ok) {
@@ -39,7 +43,7 @@ export async function getAllNews(pageParam: number) {
     )
     return news
   } catch {
-    throw new Error("Failed to fetch news.")
+    return []
   }
 }
 
@@ -57,7 +61,7 @@ async function fetchArticleByIdImpl(articleId: string) {
 
     const response = await fetch(url, {
       method: "GET",
-      next: { revalidate: NEWS_REVALIDATE_SECONDS },
+      cache: "no-store",
     })
 
     if (!response.ok) {
@@ -96,11 +100,15 @@ export async function getNewsByCategory(category: NewsCategory, pageParam: numbe
     throw new Error("API key is not defined.")
   }
   try {
-    const params = new URLSearchParams({ ...DEFAULT_PARAMS, category, page: pageParam.toString() })
+    const baseParams = { ...DEFAULT_PARAMS, category } as Record<string, string>
+    const params = new URLSearchParams(baseParams)
+    if (pageParam) {
+      params.set("page", String(pageParam))
+    }
     const url = `${API_BASE_URL}/latest?${params.toString()}`
     const response = await fetch(url, {
       method: "GET",
-      next: { revalidate: NEWS_REVALIDATE_SECONDS },
+      cache: "no-store",
     })
     if (!response.ok) {
       throw new Error(`News by category could not be fetched. Status: ${response.status}`)
@@ -114,6 +122,6 @@ export async function getNewsByCategory(category: NewsCategory, pageParam: numbe
     )
     return news
   } catch {
-    throw new Error("Failed to fetch news by category.")
+    return []
   }
 }

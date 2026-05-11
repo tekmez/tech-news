@@ -20,14 +20,17 @@ export function stripNewsHtml(html: string) {
 export function formatNewsPublishedDate(published: string) {
   const d = new Date(published)
   if (!Number.isNaN(d.getTime())) {
-    return new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(d)
+    return new Intl.DateTimeFormat("en-US", {
+      dateStyle: "medium",
+      timeZone: "UTC",
+    }).format(d)
   }
   return published.split(" ")[0] ?? published
 }
 
 export function toNewsListItem(
   item: NewsApiResultItem,
-  nextPage: number
+  nextPage: string | null | undefined
 ): NewsItemList {
   const cleanText = item.description
     ? stripNewsHtml(item.description)
@@ -42,7 +45,7 @@ export function toNewsListItem(
     language: item.language,
     category: item.category,
     published: item.pubDate,
-    nextPage: nextPage
+    nextPage: nextPage ?? null
   }
 }
 

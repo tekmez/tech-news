@@ -8,7 +8,7 @@ export type NewsItemList = {
   language?: string
   category?: string[]
   published: string
-  nextPage: number
+  nextPage: string | null
 }
 export type NewsItemSingle = {
   id: string
@@ -38,7 +38,7 @@ export type NewsApiResponse = {
   status: "success" | "error" | string
   totalResults?: number
   results?: NewsApiResultItem[]
-  nextPage: number
+  nextPage?: string | null
 }
 
 export enum NewsCategory {
